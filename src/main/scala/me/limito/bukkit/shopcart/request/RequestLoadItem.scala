@@ -1,12 +1,13 @@
 package me.limito.bukkit.shopcart.request
 
-import org.bukkit.command.CommandSender
-import org.bukkit.inventory.ItemStack
-import me.limito.bukkit.shopcart.items.{ItemEncoder, CartItemInfo}
-import org.bukkit.enchantments.Enchantment
-import collection.JavaConversions._
 import me.limito.bukkit.shopcart.ShoppingCartReloaded
+import me.limito.bukkit.shopcart.items.{CartItemInfo, ItemEncoder}
+import org.bukkit.command.CommandSender
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
+
+import scala.collection.JavaConversions._
 
 class RequestLoadItem(commandSender: CommandSender, owner: String) extends Request(commandSender) {
   private var info: CartItemInfo = _
@@ -46,16 +47,16 @@ class RequestLoadItem(commandSender: CommandSender, owner: String) extends Reque
     }
   }
 
-  private def createInfo(itemStack: ItemStack):CartItemInfo = {
-    val enchInfo = if(itemStack.getEnchantments.isEmpty) "" else "#" + createEnchantmentsInfo(itemStack.getEnchantments)
-    val itemName = if(itemStack.getDurability == 0) itemStack.getTypeId.toString else itemStack.getTypeId.toString + ":" + itemStack.getDurability.toString
+  private def createInfo(itemStack: ItemStack): CartItemInfo = {
+    val enchInfo = if (itemStack.getEnchantments.isEmpty) "" else "#" + createEnchantmentsInfo(itemStack.getEnchantments)
+    val itemName = if (itemStack.getDurability == 0) itemStack.getTypeId.toString else itemStack.getTypeId.toString + ":" + itemStack.getDurability.toString
 
     val nbtHelper = ShoppingCartReloaded.instance.nbtHelper
     val tag = nbtHelper.getTag(itemStack)
-    val encodedTag =nbtHelper.encodeJson(tag)
+    val encodedTag = nbtHelper.encodeJson(tag)
 
     new CartItemInfo(0, "item", itemName + enchInfo, owner, itemStack.getAmount, encodedTag)
   }
 
-  private def createEnchantmentsInfo(enchs: java.util.Map[Enchantment, Integer]):String = (for ((id, level) <- enchs) yield id.getId + ":" + level).mkString("#")
+  private def createEnchantmentsInfo(enchs: java.util.Map[Enchantment, Integer]): String = (for ((id, level) <- enchs) yield id.getId + ":" + level).mkString("#")
 }

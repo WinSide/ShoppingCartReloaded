@@ -1,8 +1,9 @@
 package me.limito.bukkit.shopcart.request
 
-import org.bukkit.command.CommandSender
-import me.limito.bukkit.shopcart.ShoppingCartReloaded
 import java.util.concurrent.CountDownLatch
+
+import me.limito.bukkit.shopcart.ShoppingCartReloaded
+import org.bukkit.command.CommandSender
 
 abstract class Request(val commandSender: CommandSender) {
   /** Игрок не может одновременно запускать несколько вопросов с mustLock=true */

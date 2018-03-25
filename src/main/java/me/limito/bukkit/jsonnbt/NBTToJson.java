@@ -73,7 +73,7 @@ public class NBTToJson {
         StringBuilder escaped = new StringBuilder(s.length());
         char[] chars = s.toCharArray();
 
-        for (char c: chars) {
+        for (char c : chars) {
             switch (c) {
                 case '"':
                     escaped.append("\\");

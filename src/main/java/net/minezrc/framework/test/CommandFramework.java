@@ -57,10 +57,10 @@ public class CommandFramework {
      * Handles commands. Used in the onCommand method in your JavaPlugin class
      *
      * @param sender The {@link org.bukkit.command.CommandSender} parsed from
-     *            onCommand
-     * @param label The label parsed from onCommand
-     * @param cmd The {@link org.bukkit.command.Command} parsed from onCommand
-     * @param args The arguments parsed from onCommand
+     *               onCommand
+     * @param label  The label parsed from onCommand
+     * @param cmd    The {@link org.bukkit.command.Command} parsed from onCommand
+     * @param args   The arguments parsed from onCommand
      * @return Always returns true for simplicity's sake in onCommand
      */
     public boolean handleCommand(CommandSender sender, String label, org.bukkit.command.Command cmd, String[] args) {

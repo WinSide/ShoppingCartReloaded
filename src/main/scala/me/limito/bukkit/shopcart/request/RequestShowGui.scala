@@ -1,9 +1,9 @@
 package me.limito.bukkit.shopcart.request
 
-import org.bukkit.command.CommandSender
 import me.limito.bukkit.shopcart.ShoppingCartReloaded
+import me.limito.bukkit.shopcart.gui.{CartInventory, CartInventoryNew}
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import me.limito.bukkit.shopcart.gui.{CartInventoryNew, CartInventory}
 
 class RequestShowGui(commandSender: CommandSender) extends Request(commandSender) {
   override def prehandle() {

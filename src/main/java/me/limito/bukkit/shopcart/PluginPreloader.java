@@ -3,7 +3,6 @@ package me.limito.bukkit.shopcart;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -57,7 +56,7 @@ public class PluginPreloader extends JavaPlugin {
             }
         }
 
-        for (File file: librariesFiles) {
+        for (File file : librariesFiles) {
             try {
                 addToClasspath(file.toURI().toURL());
             } catch (MalformedURLException e) {
@@ -67,21 +66,11 @@ public class PluginPreloader extends JavaPlugin {
 
         sc = new ShoppingCartReloaded(this);
         sc.onEnable();
-        runMetrics();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         return sc.onCommand(sender, command, label, args);
-    }
-
-    private void runMetrics() {
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void addToClasspath(final URL url) {

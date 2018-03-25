@@ -1,10 +1,11 @@
 package me.limito.bukkit.shopcart.gui
 
-import org.bukkit.inventory.{ItemStack, Inventory}
-import scala.collection.mutable.ArrayBuffer
-import scala.collection.mutable
 import me.limito.bukkit.shopcart.ShoppingCartReloaded
 import org.bukkit.Material
+import org.bukkit.inventory.{Inventory, ItemStack}
+
+import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 class InventoryPager(val inv: Inventory) {
   val maxPages = 100
@@ -15,6 +16,7 @@ class InventoryPager(val inv: Inventory) {
   def numPages = pages.size
 
   def populateInventory(items: Seq[ItemStack]): Unit = populateInventory(items.toList)
+
   def populateInventory(items: List[ItemStack]) {
     // Create page
     val page = new Array[ItemStack](inv.getSize)

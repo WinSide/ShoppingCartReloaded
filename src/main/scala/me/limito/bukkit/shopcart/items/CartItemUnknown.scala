@@ -1,7 +1,7 @@
 package me.limito.bukkit.shopcart.items
 
-import org.bukkit.entity.Player
 import me.limito.bukkit.shopcart.Lang
+import org.bukkit.entity.Player
 
 class CartItemUnknown extends CartItem {
   def giveToPlayer(player: Player): Int = 0

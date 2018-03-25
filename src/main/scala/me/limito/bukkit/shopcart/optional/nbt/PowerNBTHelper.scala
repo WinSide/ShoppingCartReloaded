@@ -1,10 +1,11 @@
 package me.limito.bukkit.shopcart.optional.nbt
 
-import me.dpohvar.powernbt.nbt.{NBTContainerItem, NBTBase}
-import org.bukkit.inventory.{Inventory, ItemStack}
-import me.limito.bukkit.shopcart.ShoppingCartReloaded
-import me.limito.bukkit.jsonnbt._
 import java.util.logging.Level
+
+import me.dpohvar.powernbt.nbt.{NBTBase, NBTContainerItem}
+import me.limito.bukkit.jsonnbt._
+import me.limito.bukkit.shopcart.ShoppingCartReloaded
+import org.bukkit.inventory.{Inventory, ItemStack}
 
 class PowerNBTHelper extends NBTHelper {
   runTests()
@@ -44,6 +45,7 @@ class PowerNBTHelper extends NBTHelper {
       case ex: NBTException => throw new NBTParseException("Error parsing json", ex)
     }
   }
+
   override def placeTag(tag: NBTTag, stack: ItemStack) = {
     val tagi = tag.asInstanceOf[NBTTagImpl]
 
@@ -70,4 +72,5 @@ class PowerNBTHelper extends NBTHelper {
   }
 
   case class NBTTagImpl(nbt: NBTBase) extends NBTTag
+
 }

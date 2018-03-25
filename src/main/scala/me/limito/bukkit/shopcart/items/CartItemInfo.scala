@@ -1,10 +1,10 @@
 package me.limito.bukkit.shopcart.items
 
-import me.limito.bukkit.shopcart.ShoppingCartReloaded
 import java.util.logging.Level
+
+import me.limito.bukkit.shopcart.ShoppingCartReloaded
 import me.limito.bukkit.shopcart.optional.nbt.NBTTag
-import scala.collection.mutable
-import org.bukkit.enchantments.Enchantment
+
 import scala.util.matching.Regex
 
 class CartItemInfo(var id: Long,
@@ -37,6 +37,7 @@ class CartItemInfo(var id: Long,
   }
 
   private def toWGRegion(membershipType: WGMembershipType) = new CartItemWG(item, membershipType, amount)
+
   private def toMoneyItem: CartItemMoney = new CartItemMoney(amount)
 
   private def toPerm: CartItem = {
@@ -90,21 +91,21 @@ class CartItemInfo(var id: Long,
     val chestshopEnchantDelimIndex = item.indexOf('-')
 
     val enchantmentsChestshop =
-      if(chestshopEnchantDelimIndex >= 0)
+      if (chestshopEnchantDelimIndex >= 0)
         parseChestshopEnchantments(item.drop(chestshopEnchantDelimIndex + 1))
       else null
     val enchantmentsPound =
       if (enchantmentsChestshop == null && poundEnchantDelimIndex >= 0)
         parsePoundEnchantments(item.drop(poundEnchantDelimIndex + 1))
       else null
-    val enchantments = if(enchantmentsChestshop != null) enchantmentsChestshop else enchantmentsPound
-    val enchantmentsIndex = if(enchantmentsChestshop != null) chestshopEnchantDelimIndex else poundEnchantDelimIndex
+    val enchantments = if (enchantmentsChestshop != null) enchantmentsChestshop else enchantmentsPound
+    val enchantmentsIndex = if (enchantmentsChestshop != null) chestshopEnchantDelimIndex else poundEnchantDelimIndex
 
     val mainAndNameWithLore = if (enchantmentsIndex < 0) item else item.take(enchantmentsIndex)
-    val Array(main, nameAndLoreString @ _*) = mainAndNameWithLore.split("@", 2)
+    val Array(main, nameAndLoreString@_*) = mainAndNameWithLore.split("@", 2)
     val nameAndLore = nameAndLoreString.headOption.map(parseNameAndLore)
 
-    val Array(id, meta @ _*) = main.split(":", 2)
+    val Array(id, meta@_*) = main.split(":", 2)
 
     new CartItemItem(id.toInt, if (meta.isEmpty) 0 else meta.head.toShort, amount, enchantments, parseNBT, nameAndLore)
   }
@@ -140,7 +141,7 @@ class CartItemInfo(var id: Long,
       ShoppingCartReloaded.instance.nbtHelper.parseJson(extra)
   }
 
-  private def parsePoundEnchantments(str: String): Array[LeveledEnchantment] = str.split("#").map (d => {
+  private def parsePoundEnchantments(str: String): Array[LeveledEnchantment] = str.split("#").map(d => {
     val Array(id, level) = d.split(":")
     new LeveledEnchantment(id.toInt, level.toInt)
   })

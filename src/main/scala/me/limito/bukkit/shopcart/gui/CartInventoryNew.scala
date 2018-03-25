@@ -1,14 +1,14 @@
 package me.limito.bukkit.shopcart.gui
 
+import me.limito.bukkit.shopcart.items.CartItemInfo
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.inventory.{DragType, InventoryDragEvent}
 import org.bukkit.inventory.ItemStack
-import org.bukkit.entity.Player
-import me.limito.bukkit.shopcart.items.CartItemInfo
 
 /**
- * For Minecraft 1.5.2+
- */
+  * For Minecraft 1.5.2+
+  */
 class CartInventoryNew(player: Player, itemInfos: Seq[CartItemInfo]) extends CartInventory(player, itemInfos) {
   @EventHandler
   def onInvDragged(event: InventoryDragEvent) {
@@ -34,7 +34,8 @@ class CartInventoryNew(player: Player, itemInfos: Seq[CartItemInfo]) extends Car
       val amount = if (event.getType == DragType.SINGLE) 1 else MaxGive
       val slot = new StackSlot {
         override def get: ItemStack = event.getOldCursor
-        override def set(stack: ItemStack): Unit = {}// Update not needed
+
+        override def set(stack: ItemStack): Unit = {} // Update not needed
       }
       if (giveItemAndUpdateStackInSlot(slot, amount))
         event.setCancelled(true)

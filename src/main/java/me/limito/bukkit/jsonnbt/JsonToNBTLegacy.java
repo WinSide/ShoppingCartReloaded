@@ -27,8 +27,7 @@ public class JsonToNBTLegacy {
 
                 String eType = null;
                 int typeI = key.indexOf("#");
-                if (typeI > 0)
-                {
+                if (typeI > 0) {
                     eType = key.substring(0, typeI);
                     key = key.substring(typeI + 1);
                 }

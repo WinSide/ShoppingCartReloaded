@@ -1,14 +1,15 @@
 package me.limito.bukkit.shopcart.items
 
-import me.limito.bukkit.shopcart.{ShoppingCartReloaded, Lang}
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin
+import me.limito.bukkit.shopcart.{Lang, ShoppingCartReloaded}
 import org.bukkit.entity.Player
-import com.sk89q.worldguard.bukkit.{BukkitPlayer, WorldGuardPlugin}
-import org.bukkit.plugin.Plugin
-import org.bukkit.{Material, Bukkit}
 import org.bukkit.inventory.ItemStack
+import org.bukkit.{Bukkit, Material}
 
 sealed abstract class WGMembershipType
+
 object WGMember extends WGMembershipType
+
 object WGOwner extends WGMembershipType
 
 class CartItemWG(regionName: String, membershipType: WGMembershipType, amount: Int) extends CartItem {

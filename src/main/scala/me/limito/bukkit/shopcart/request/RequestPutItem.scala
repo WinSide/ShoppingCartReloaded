@@ -1,9 +1,9 @@
 package me.limito.bukkit.shopcart.request
 
+import me.limito.bukkit.shopcart.ShoppingCartReloaded
+import me.limito.bukkit.shopcart.items.{CartItemInfo, ItemEncoder}
 import org.bukkit.command.CommandSender
 import org.bukkit.inventory.ItemStack
-import me.limito.bukkit.shopcart.items.{ItemEncoder, CartItemInfo}
-import me.limito.bukkit.shopcart.ShoppingCartReloaded
 
 class RequestPutItem(commandSender: CommandSender, owner: String, itemStack: ItemStack, amount: Int) extends Request(commandSender) {
   private var info: CartItemInfo = _

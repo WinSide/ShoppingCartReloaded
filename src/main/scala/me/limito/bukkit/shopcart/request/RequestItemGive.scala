@@ -1,10 +1,11 @@
 package me.limito.bukkit.shopcart.request
 
+import java.util.logging.Level
+
+import me.limito.bukkit.shopcart.ShoppingCartReloaded
+import me.limito.bukkit.shopcart.items.CartItem
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import me.limito.bukkit.shopcart.items.CartItem
-import me.limito.bukkit.shopcart.ShoppingCartReloaded
-import java.util.logging.Level
 
 class RequestItemGive(commandSender: CommandSender, itemId: Int, itemAmount: Int) extends Request(commandSender) {
 
@@ -49,7 +50,7 @@ class RequestItemGive(commandSender: CommandSender, itemId: Int, itemAmount: Int
       item.giveToPlayer(commandSender.asInstanceOf[Player], amount)
     } catch {
       case ex: Exception => ShoppingCartReloaded.instance.getLogger.log(Level.WARNING, "Error giving item", ex)
-      0
+        0
     }
   }
 }

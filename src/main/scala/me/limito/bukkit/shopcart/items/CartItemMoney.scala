@@ -1,10 +1,10 @@
 package me.limito.bukkit.shopcart.items
 
-import org.bukkit.entity.Player
-import me.limito.bukkit.shopcart.{ShoppingCartReloaded, Lang}
+import me.limito.bukkit.shopcart.{Lang, ShoppingCartReloaded}
 import net.milkbowl.vault.economy.Economy
-import org.bukkit.{Material, Bukkit}
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.{Bukkit, Material}
 
 class CartItemMoney(amount: Int) extends CartItem {
   override def getYouGetMessage(amount: Int, lang: Lang): String = lang.format("cart-get.get-money", amount)

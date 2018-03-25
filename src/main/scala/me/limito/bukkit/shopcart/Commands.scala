@@ -1,11 +1,12 @@
 package me.limito.bukkit.shopcart
 
-import net.minezrc.framework.test.CommandFramework.{CommandMessagedException, Command, CommandArgs}
 import me.limito.bukkit.shopcart.request._
+import net.minezrc.framework.test.CommandFramework.{Command, CommandArgs, CommandMessagedException}
 import org.bukkit.entity.Player
 
 class Commands(pl: ShoppingCartReloaded) {
   def requestManager = pl.requestManager
+
   def lang = pl.lang
 
   @Command(name = "cart.get", permission = "cartr.user.get")

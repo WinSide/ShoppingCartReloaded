@@ -1,21 +1,21 @@
 package me.limito.bukkit.shopcart.items
 
+import me.limito.bukkit.shopcart.optional.nbt.NBTTag
+import me.limito.bukkit.shopcart.{Lang, ShoppingCartReloaded}
+import org.bukkit.Material
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.inventory.{Inventory, ItemStack}
-import me.limito.bukkit.shopcart.{ShoppingCartReloaded, Lang}
-import org.bukkit.enchantments.Enchantment
-import me.limito.bukkit.shopcart.optional.nbt.NBTTag
+
 import scala.annotation.tailrec
 import scala.collection.JavaConverters._
-import java.util
-import org.bukkit.Material
 
 case class NameAndLore(name: String, lore: String)
 
 class CartItemItem(val itemId: Int, val itemMeta: Short, val amount: Int, val enchantments: Array[LeveledEnchantment], val nbtTag: NBTTag, val nameAndLoreOption: Option[NameAndLore]) extends CartItem {
-  def giveToPlayer(player: Player):Int = giveToPlayer(player, amount)
+  def giveToPlayer(player: Player): Int = giveToPlayer(player, amount)
 
-  def giveToPlayer(player: Player, amount: Int):Int = {
+  def giveToPlayer(player: Player, amount: Int): Int = {
     val stack = stackToGive
     if (stack.isDefined)
       give(player.getInventory, stack.get, amount, 0)
@@ -29,7 +29,7 @@ class CartItemItem(val itemId: Int, val itemMeta: Short, val amount: Int, val en
       val stack = if (nbtTag != null) ShoppingCartReloaded.instance.nbtHelper.placeTag(nbtTag, bstack) else bstack
 
       if (enchantments != null)
-        enchantments foreach(e => stack.addUnsafeEnchantment(Enchantment.getById(e.id), e.level))
+        enchantments foreach (e => stack.addUnsafeEnchantment(Enchantment.getById(e.id), e.level))
       if (nameAndLoreOption.isDefined) {
         val nameAndLore = nameAndLoreOption.get
         val meta = stack.getItemMeta

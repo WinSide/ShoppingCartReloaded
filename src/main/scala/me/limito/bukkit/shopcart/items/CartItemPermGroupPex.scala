@@ -1,11 +1,11 @@
 package me.limito.bukkit.shopcart.items
 
-import me.limito.bukkit.shopcart.{ShoppingCartReloaded, Lang}
-import org.bukkit.entity.Player
+import me.limito.bukkit.shopcart.Lang
 import me.limito.bukkit.shopcart.Lang.{TimeDuration, WorldName}
-import ru.tehkode.permissions.bukkit.PermissionsEx
-import org.bukkit.inventory.ItemStack
 import org.bukkit.Material
+import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
+import ru.tehkode.permissions.bukkit.PermissionsEx
 
 class CartItemPermGroupPex(groupName: String, worldName: Option[String] = None, lifetime: Option[Long]) extends CartItem {
   val extras = (worldName.map(WorldName) ++ lifetime.map(TimeDuration)).toList
@@ -16,9 +16,9 @@ class CartItemPermGroupPex(groupName: String, worldName: Option[String] = None, 
 
   override def giveToPlayer(player: Player, amount: Int): Int = {
     val worldNameOrNull = worldName.getOrElse(null)
-    val user = PermissionsEx.getPermissionManager.getUser(player)
+    val user = PermissionsEx.getUser(player)
 
-    if (user.getGroupsNames(worldNameOrNull).contains(groupName)) {
+    /*if (user.inGroup(groupName)) {
       val lang = ShoppingCartReloaded.instance.lang
       player.sendMessage(ShoppingCartReloaded.instance.lang.format("cart-get.already-in-perm-group", getLocalizedName(lang)))
       return 0
@@ -27,7 +27,7 @@ class CartItemPermGroupPex(groupName: String, worldName: Option[String] = None, 
     if (lifetime.isDefined)
       user.addGroup(groupName, worldNameOrNull, lifetime.get)
     else
-      user.addGroup(groupName, worldNameOrNull)
+      user.addGroup(groupName, worldNameOrNull)*/
     1
   }
 

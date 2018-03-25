@@ -1,6 +1,6 @@
 package me.limito.bukkit.jsonnbt;
 
-public class NBTException extends RuntimeException  {
+public class NBTException extends RuntimeException {
     public NBTException() {
     }
 

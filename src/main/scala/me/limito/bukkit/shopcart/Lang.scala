@@ -1,20 +1,23 @@
 package me.limito.bukkit.shopcart
 
-import collection.mutable
-import items.LeveledEnchantment
-import org.bukkit.configuration.{ConfigurationSection, Configuration}
-import collection.JavaConversions._
+import me.limito.bukkit.shopcart.Lang.ExtraLangData
+import me.limito.bukkit.shopcart.items.LeveledEnchantment
+import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.{ChatColor, Material}
-import me.limito.bukkit.shopcart.Lang.{ExtraLangData, WorldName}
-import java.util.concurrent.TimeUnit
+
+import scala.collection.JavaConversions._
+import scala.collection.mutable
 
 object Lang {
+
   abstract sealed class ExtraLangData {
     def getExtraString(lang: Lang): String
   }
+
   case class WorldName(name: String) extends ExtraLangData {
     override def getExtraString(lang: Lang): String = lang.format("misc.world", name)
   }
+
   case class TimeDuration(durationSec: Long) extends ExtraLangData {
     override def getExtraString(lang: Lang): String = lang.format("misc.duration", getIntervalString(lang))
 
@@ -35,6 +38,7 @@ object Lang {
       lang.format("misc.timeinterval", days, hours, minutes, seconds)
     }
   }
+
 }
 
 class Lang {
@@ -43,7 +47,7 @@ class Lang {
   val messageFormats = mutable.Map[String, String]()
 
   val itemsNames = new Array[String](Short.MaxValue + 1)
-  val itemsMetaNames = new Array[Array[String]](Short.MaxValue +  1)
+  val itemsMetaNames = new Array[Array[String]](Short.MaxValue + 1)
   val enchantmentTypes = new Array[String](Short.MaxValue)
 
   def read(config: ConfigurationSection) {
@@ -71,7 +75,9 @@ class Lang {
   }
 
   def get(formatName: String) = messageFormats.getOrElse(formatName, formatName)
-  def format(formatName: String, data: Any*):String = get(formatName).format(data: _*)
+
+  def format(formatName: String, data: Any*): String = get(formatName).format(data: _*)
+
   def formatExtra(formatName: String, extra: Seq[ExtraLangData], data: Any*): String = {
     val formatted = get(formatName).format(data: _*)
     val extraString = createExtra(extra)
@@ -112,6 +118,7 @@ class Lang {
     case null => materialId.toString
   }
 
-  def formatEnchantments(ench: Array[LeveledEnchantment]):String = ench map(e => enchantmentTypes(e.id) + " " + romanNum(e.level)) mkString(ChatColor.AQUA.toString, ", ", "")
+  def formatEnchantments(ench: Array[LeveledEnchantment]): String = ench map (e => enchantmentTypes(e.id) + " " + romanNum(e.level)) mkString(ChatColor.AQUA.toString, ", ", "")
+
   def romanNum(a: Int) = if (a >= 0 && a < romanNums.length) romanNums(a) else a.toString
 }

@@ -1,18 +1,20 @@
 package me.limito.bukkit.shopcart
 
-import me.limito.bukkit.shopcart.database.{ConnectionConfig, CartItemInfoDao, DatabaseConfig}
-import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
-import org.bukkit.configuration.file.YamlConfiguration
 import java.util.logging.Level
-import org.bukkit.command.{CommandExecutor, Command, CommandSender}
-import request._
-import collection.JavaConversions._
-import me.limito.bukkit.shopcart.optional.nbt.{PowerNBTHelper, NBTHelperStub, NBTHelper}
-import com.j256.ormlite.jdbc.{JdbcPooledConnectionSource, JdbcConnectionSource}
+
+import com.j256.ormlite.jdbc.{JdbcConnectionSource, JdbcPooledConnectionSource}
 import com.j256.ormlite.logger.LocalLog
-import org.bukkit.Bukkit
+import me.limito.bukkit.shopcart.database.{CartItemInfoDao, ConnectionConfig, DatabaseConfig}
+import me.limito.bukkit.shopcart.optional.nbt.{NBTHelper, NBTHelperStub, PowerNBTHelper}
+import me.limito.bukkit.shopcart.request._
 import net.minezrc.framework.test.CommandFramework
+import org.bukkit.Bukkit
+import org.bukkit.command.{Command, CommandExecutor, CommandSender}
+import org.bukkit.configuration.file.YamlConfiguration
+import org.bukkit.plugin.java.JavaPlugin
+
+import scala.collection.JavaConversions._
 
 class ShoppingCartReloaded(val plugin: JavaPlugin) extends CommandExecutor {
   ShoppingCartReloaded.instance = this
@@ -55,6 +57,7 @@ class ShoppingCartReloaded(val plugin: JavaPlugin) extends CommandExecutor {
   }
 
   def getLogger = plugin.getLogger
+
   def getServer = plugin.getServer
 
   def loadMessages() {
@@ -138,7 +141,7 @@ class ShoppingCartReloaded(val plugin: JavaPlugin) extends CommandExecutor {
 
   private def loadYamlAndMerge(resource: String): YamlConfiguration = {
     val config = loadYamlOrDefault(resource)
-    val defaultConfig = YamlConfiguration.loadConfiguration(getClass.getResourceAsStream("/" + resource))
+    val defaultConfig = config
     var somethingMerged = false
 
     for (key <- defaultConfig.getKeys(true))

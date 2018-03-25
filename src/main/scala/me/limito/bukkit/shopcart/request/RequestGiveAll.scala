@@ -1,13 +1,16 @@
 package me.limito.bukkit.shopcart.request
 
-import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
-import collection.mutable.ListBuffer
-import me.limito.bukkit.shopcart.items.{CartItemInfo, CartItem}
-import me.limito.bukkit.shopcart.ShoppingCartReloaded
 import java.util.logging.Level
 
+import me.limito.bukkit.shopcart.ShoppingCartReloaded
+import me.limito.bukkit.shopcart.items.{CartItem, CartItemInfo}
+import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
+
+import scala.collection.mutable.ListBuffer
+
 class RequestGiveAll(commandSender: CommandSender) extends Request(commandSender) {
+
   case class ItemGiveInfo(info: CartItemInfo, item: CartItem, amount: Int)
 
   override def prehandle() {
@@ -51,7 +54,7 @@ class RequestGiveAll(commandSender: CommandSender) extends Request(commandSender
       item.giveToPlayer(commandSender.asInstanceOf[Player])
     } catch {
       case ex: Exception => ShoppingCartReloaded.instance.getLogger.log(Level.WARNING, "Error giving item", ex)
-      0
+        0
     }
   }
 }

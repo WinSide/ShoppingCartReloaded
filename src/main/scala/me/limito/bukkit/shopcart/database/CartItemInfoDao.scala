@@ -1,11 +1,12 @@
 package me.limito.bukkit.shopcart.database
 
-import me.limito.bukkit.shopcart.items.CartItemInfo
-import com.j256.ormlite.dao.{DaoManager, Dao}
-import scala.collection.JavaConverters._
-import com.j256.ormlite.table.{TableUtils, DatabaseTableConfig}
+import com.j256.ormlite.dao.{Dao, DaoManager}
 import com.j256.ormlite.stmt.SelectArg
 import com.j256.ormlite.support.ConnectionSource
+import com.j256.ormlite.table.{DatabaseTableConfig, TableUtils}
+import me.limito.bukkit.shopcart.items.CartItemInfo
+
+import scala.collection.JavaConverters._
 
 class CartItemInfoDao(connSource: ConnectionSource, config: DatabaseConfig) extends DaoHelper {
   var dao: Dao[CartItemInfo, Long] = _
@@ -14,11 +15,11 @@ class CartItemInfoDao(connSource: ConnectionSource, config: DatabaseConfig) exte
     val columns = config.columns
     val fieldsList =
       (Some(idConfig("id", columns("id"))) ++
-      fieldConfig("itemType", columns("type"), nullable = false, defaultValue = Some("item")) ++
-      fieldConfig("item", columns("item"), nullable = false) ++
-      fieldConfig("owner", columns("player"), nullable = false, indexed = true) ++
-      fieldConfig("amount", columns("amount"), nullable = false) ++
-      fieldConfig("extra", columns("extra"), nullable = true)).toList
+        fieldConfig("itemType", columns("type"), nullable = false, defaultValue = Some("item")) ++
+        fieldConfig("item", columns("item"), nullable = false) ++
+        fieldConfig("owner", columns("player"), nullable = false, indexed = true) ++
+        fieldConfig("amount", columns("amount"), nullable = false) ++
+        fieldConfig("extra", columns("extra"), nullable = true)).toList
 
     val serverFieldList = if (config.serverName.isDefined) fieldConfig("server", columns("server"), nullable = false, indexed = true).toList else Nil
     val fullFieldList = fieldsList ::: serverFieldList
@@ -27,7 +28,7 @@ class CartItemInfoDao(connSource: ConnectionSource, config: DatabaseConfig) exte
     dao = DaoManager.createDao(connSource, tableConfig)
 
     if (!tableExists())
-     TableUtils.createTableIfNotExists(connSource, tableConfig)
+      TableUtils.createTableIfNotExists(connSource, tableConfig)
   }
 
   def tableExists(): Boolean = {
@@ -43,7 +44,7 @@ class CartItemInfoDao(connSource: ConnectionSource, config: DatabaseConfig) exte
     info.id
   }
 
-  def getItemInfos(playerName: String): List[CartItemInfo] =  withExceptionHandling {
+  def getItemInfos(playerName: String): List[CartItemInfo] = withExceptionHandling {
     val queryBuilder = dao.queryBuilder()
     val ownerWhere = queryBuilder.where().
       eq(config.columns("player"), new SelectArg(playerName))

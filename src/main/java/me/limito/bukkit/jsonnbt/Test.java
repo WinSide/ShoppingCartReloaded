@@ -25,7 +25,7 @@ public class Test {
 
         itemStack.addUnsafeEnchantment(Enchantment.KNOCKBACK, 1);
         NBTBase nbt = containerItem.getTag();
-        if (!(nbt instanceof NBTTagCompound) || !((NBTTagCompound)nbt).containsKey("ench"))
+        if (!(nbt instanceof NBTTagCompound) || !((NBTTagCompound) nbt).containsKey("ench"))
             throw new AssertionError("Test failed! No ench compound!");
     }
 
@@ -38,7 +38,7 @@ public class Test {
                 "{LifeTime:20,FireworksItem:{id:401,Count:1,tag:{Fireworks:{Explosions:[{Flicker:1,Trail:1,Type:4,Colors:[255,16711680,16776960],FadeColors:[255,16711680,16776960]},{Flicker:0,Trail:0,Type:1,Colors:[16711680,16776960],FadeColors:[255,16711680]}]}}}}",
                 "{Riding:{id:Pig,Riding:{id:Chicken}}}"
         };
-        for (String json: jsons) {
+        for (String json : jsons) {
             NBTBase nbt = JsonToNBT.parse(json);
             nbt.clone();
         }

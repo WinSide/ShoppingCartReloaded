@@ -1,20 +1,22 @@
 package me.limito.bukkit.shopcart.request
 
-import me.limito.bukkit.shopcart.ShoppingCartReloaded
 import java.util.concurrent.{ConcurrentHashMap, Executors}
 import java.util.logging.Level
 
+import me.limito.bukkit.shopcart.ShoppingCartReloaded
+
 /**
- * Задача: контроллировать запросы от игроков: не давать запускать сразу несколько запросов на запись в БД, защита от флуда и т.д.
- * Не является thread-safe
- */
+  * Задача: контроллировать запросы от игроков: не давать запускать сразу несколько запросов на запись в БД, защита от флуда и т.д.
+  * Не является thread-safe
+  */
 class RequestManager(val plugin: ShoppingCartReloaded) {
   val requestsExecutor = Executors.newFixedThreadPool(2)
   val playersRequestRunning = new ConcurrentHashMap[String, Request]()
+
   def lang = plugin.lang
 
   def handleRequest(request: Request) {
-    if(playersRequestRunning.putIfAbsent(request.commandSender.getName, request) == null) {
+    if (playersRequestRunning.putIfAbsent(request.commandSender.getName, request) == null) {
       withExceptionHandling(request) {
         request.prehandle()
         requestsExecutor.submit(new Runnable {

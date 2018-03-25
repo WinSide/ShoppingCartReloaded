@@ -1,12 +1,11 @@
 package me.limito.bukkit.shopcart.items
 
-import me.limito.bukkit.shopcart.{ShoppingCartReloaded, Lang}
-import org.bukkit.entity.Player
-import me.limito.bukkit.shopcart.Lang.{TimeDuration, WorldName}
-import ru.tehkode.permissions.bukkit.PermissionsEx
-import org.bukkit.{Material, Bukkit}
+import me.limito.bukkit.shopcart.Lang.WorldName
+import me.limito.bukkit.shopcart.{Lang, ShoppingCartReloaded}
 import net.milkbowl.vault.permission.Permission
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.{Bukkit, Material}
 
 class CartItemPerm(permName: String, worldName: Option[String] = None) extends CartItem {
   val extras = worldName.map(WorldName).toList

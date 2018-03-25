@@ -1,11 +1,11 @@
 package me.limito.bukkit.shopcart.items
 
-import me.limito.bukkit.shopcart.{ShoppingCartReloaded, Lang}
-import org.bukkit.entity.Player
-import org.bukkit.{Material, Bukkit}
-import net.milkbowl.vault.permission.Permission
 import me.limito.bukkit.shopcart.Lang.WorldName
+import me.limito.bukkit.shopcart.{Lang, ShoppingCartReloaded}
+import net.milkbowl.vault.permission.Permission
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.{Bukkit, Material}
 
 class CartItemPermGroup(groupName: String, worldName: Option[String] = None) extends CartItem {
   override def getYouGetMessage(amount: Int, lang: Lang): String = lang.format("cart-get.get-permgroup", getLocalizedName(lang))
